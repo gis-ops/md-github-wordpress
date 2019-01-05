@@ -27,7 +27,7 @@ function get_api_response($atts, $method) {
       'method' => 'GET',
       'user_agent' => 'GIS-OPS.com',
       'timeout' => 1,
-      'header' => "Accept: application/vnd.github.VERSION.raw+json\r\n"
+      'header' => "Accept: application/vnd.github.VERSION.html+json\r\n"
     )
   );
 
@@ -72,11 +72,7 @@ function md_github_handler($atts) {
  //get raw markdown from file URL
  $res = get_api_response($atts, 'file');
  //send back text to replace shortcode in post
- return 'Bla
-
- jfla
-
- fj';
+ return $res;
 }
 
 function md_github_checkout($atts) {

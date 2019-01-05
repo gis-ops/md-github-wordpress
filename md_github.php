@@ -18,7 +18,7 @@ function md_github_handler($atts) {
 
 function md_github_checkout($atts) {
   $last_update_htnl = get_github_checkout($atts, 'checkout');
-  return $last_update_htnl
+  return $last_update_htnl;
 }
 
 function get_api_path($atts, $method) {
@@ -52,7 +52,7 @@ function get_api_path($atts, $method) {
   $res = file_get_contents($request_url, FALSE, stream_context_create($context_params));
   $json = json_decode($res, true);
 
-  return $json
+  return $json;
 }
 
 function get_github_checkout($json) {
@@ -68,13 +68,9 @@ function get_github_checkout($json) {
       </div>
     </div>';
 
-  return $checkout_label
+  return $checkout_label;
   }
-
-function get_markdown_content($json) {
-  return
-}
-
+  
 function md_github_enqueue_style() {
 	wp_enqueue_style( 'md-github', plugins_url( '/css/github-markdown.css', __FILE__ ));
 }

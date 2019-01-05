@@ -22,24 +22,25 @@ function get_api_response($atts, $method) {
   $branch = $url_list[6];
   $path = implode("/", array_slice($url_list, 7));
 
+  $context_params = array(
+    'http' => array(
+      'method' => 'GET',
+      'user_agent' => 'GIS-OPS.com',
+      'timeout' => 1,
+      'header' => "Accept: application/vnd.github.VERSION.raw+json\r\n"
+    )
+  );
+
   if ($method == 'file') {
     //if we want to get the markdown file via md_github shortcode
     $request_url = 'https://api.github.com/repos/'.$owner.'/'.$repo.'/contents/'.$path.'?ref='.$branch;
-
-    $context_params = array(
-      'http' => array(
-        'method' => 'GET',
-        'timeout' => 1,
-        'header' => "Accept: application/vnd.github.VERSION.raw+json\r\n"
-      )
-    );
-
     $res = file_get_contents($request_url, FALSE, stream_context_create($context_params));
+
     return $res;
   } else {
     //if we want to get the checkout html via checkout_github shortcode
     $request_url = 'https://api.github.com/repos/'.$owner.'/'.$repo.'/commits/'.$branch.'?path='.$path.'&page=1';
-    $res = file_get_contents($request_url, FALSE);
+    $res = file_get_contents($request_url, FALSE, stream_context_create($context_params));
 
     $json = json_decode($res, true);
     return $json;

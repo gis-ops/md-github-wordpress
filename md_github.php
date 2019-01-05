@@ -1,27 +1,14 @@
 <?php
    /*
-   Plugin Name: md-github
+   Plugin Name: Markdown Github
    Description: A plugin to inject markdown files directly into a post from Github
    Version: 0.1
    Author: Nils Nolde
    Author URI: https://gis-ops.com
-   License: MIT
+   License: GNU v2
    */
 
-function md_github_handler($atts) {
-  //get API path from file URL
-  $json = get_api_path($atts, 'file');
-  $md_output = base64_decode($json['content']);
-  //send back text to replace shortcode in post
-  return $md_output;
-}
-
-function md_github_checkout($atts) {
-  $last_update_htnl = get_github_checkout($atts, 'checkout');
-  return $last_update_htnl;
-}
-
-function get_api_path($atts, $method) {
+function get_api_response($atts, $method) {
 
   extract(shortcode_atts(array(
           'url' => "",
@@ -36,22 +23,29 @@ function get_api_path($atts, $method) {
   $path = implode("/", array_slice($url_list, 7));
 
   if ($method === 'file') {
+    //if we want to get the markdown file via md_github shortcode
     $request_url = 'https://api.github.com/repos/'.$owner.'/'.$repo.'/contents/'.$path.'?ref='.$branch.;
+
+    $context_params = array(
+      'http' => array(
+        'method' => 'GET',
+        'timeout' => 1,
+        'header' => "Accept: application/vnd.github.VERSION.raw+json\r\n"
+      )
+    );
+
+    $res = file_get_contents($request_url, FALSE, stream_context_create($context_params));
+    return $res;
   } else {
+    //if we want to get the checkout html via checkout_github shortcode
     $request_url = 'https://api.github.com/repos/'.$owner.'/'.$repo.'/commits/'.$branch.'?path='. $path.'&page=1';
+    $res = file_get_contents($request_url, FALSE);
+
+    $json = json_decode($res, true);
+    return $json;
   }
 
-  $context_params = array(
-    'http' => array(
-      'method' => 'GET',
-      'timeout' => 1
-    )
-  );
-
-  $res = file_get_contents($request_url, FALSE, stream_context_create($context_params));
-  $json = json_decode($res, true);
-
-  return $json;
+  return;
 }
 
 function get_github_checkout($json) {
@@ -73,8 +67,21 @@ function get_github_checkout($json) {
   return $checkout_label;
   }
 
+function md_github_handler($atts) {
+ //get raw markdown from file URL
+ $res = get_api_response($atts, 'file');
+ //send back text to replace shortcode in post
+ return $res;
+}
+
+function md_github_checkout($atts) {
+ $json = get_api_response($atts, 'checkout');
+ $last_update_htnl = get_github_checkout($json);
+ return $last_update_htnl;
+}
+
 function md_github_enqueue_style() {
-	wp_enqueue_style( 'md-github', plugins_url( '/css/md-github.css', __FILE__ ));
+	wp_enqueue_style( 'md_github', plugins_url( '/css/md-github.css', __FILE__ ));
 }
 add_action( 'wp_enqueue_scripts', 'md_github_enqueue_style' );
 add_shortcode('checkout_github', "md_github_checkout")

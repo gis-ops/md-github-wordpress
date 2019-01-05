@@ -84,5 +84,5 @@ function md_github_enqueue_style() {
 	wp_enqueue_style( 'md_github', plugins_url( '/css/md-github.css', __FILE__ ));
 }
 add_action( 'wp_enqueue_scripts', 'md_github_enqueue_style' );
-add_shortcode('checkout_github', "md_github_checkout")
+add_shortcode('checkout_github', "md_github_checkout");
 add_shortcode("md_github", "md_github_handler");

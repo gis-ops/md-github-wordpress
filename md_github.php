@@ -72,7 +72,11 @@ function md_github_handler($atts) {
  //get raw markdown from file URL
  $res = get_api_response($atts, 'file');
  //send back text to replace shortcode in post
- return $res;
+ return 'Bla
+
+ jfla
+
+ fj';
 }
 
 function md_github_checkout($atts) {

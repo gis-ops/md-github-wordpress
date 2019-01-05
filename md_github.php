@@ -22,9 +22,9 @@ function get_api_response($atts, $method) {
   $branch = $url_list[6];
   $path = implode("/", array_slice($url_list, 7));
 
-  if ($method === 'file') {
+  if ($method == 'file') {
     //if we want to get the markdown file via md_github shortcode
-    $request_url = 'https://api.github.com/repos/'.$owner.'/'.$repo.'/contents/'.$path.'?ref='.$branch.;
+    $request_url = 'https://api.github.com/repos/'.$owner.'/'.$repo.'/contents/'.$path.'?ref='.$branch;
 
     $context_params = array(
       'http' => array(
@@ -38,7 +38,7 @@ function get_api_response($atts, $method) {
     return $res;
   } else {
     //if we want to get the checkout html via checkout_github shortcode
-    $request_url = 'https://api.github.com/repos/'.$owner.'/'.$repo.'/commits/'.$branch.'?path='. $path.'&page=1';
+    $request_url = 'https://api.github.com/repos/'.$owner.'/'.$repo.'/commits/'.$branch.'?path='.$path.'&page=1';
     $res = file_get_contents($request_url, FALSE);
 
     $json = json_decode($res, true);

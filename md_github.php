@@ -44,7 +44,6 @@ function get_api_path($atts, $method) {
   $context_params = array(
     'http' => array(
       'method' => 'GET',
-      'user_agent' => 'Bogus user agent',
       'timeout' => 1
     )
   );
@@ -57,20 +56,23 @@ function get_api_path($atts, $method) {
 
 function get_github_checkout($json) {
 
-  $last_update_date_time = $url['commit']['committer']['date'];
+  $datetime = $json['commit']['committer']['date'];
+
+  $max_datetime = strtotime($datetime);
+  $max_datetime_f = date('d/m/Y H:i:s', $max_datetime);
 
   $checkout_label = '<div class="markdown-github"
       <div class="markdown-github-labels">
         <label class="github-link">
-          <a href="'.$url.'" target="_blank">Check it out on github</a>
-          <label class="github-last-update"> Last updated: '.$last_update_date_time.'</label>
+          <a href="'.$json.'" target="_blank">Check it out on github</a>
+          <label class="github-last-update"> Last updated: '.$max_datetime_f.'</label>
         </label>
       </div>
     </div>';
 
   return $checkout_label;
   }
-  
+
 function md_github_enqueue_style() {
 	wp_enqueue_style( 'md-github', plugins_url( '/css/github-markdown.css', __FILE__ ));
 }

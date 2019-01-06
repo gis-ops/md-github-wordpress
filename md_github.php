@@ -78,11 +78,12 @@ function md_github_handler($atts) {
 function md_github_checkout($atts) {
  $json = get_api_response($atts, 'checkout');
  $last_update_htnl = get_github_checkout($json);
+ 
  return $last_update_htnl;
 }
 
 function md_github_enqueue_style() {
-	wp_enqueue_style( 'md_github', plugins_url( '/css/md-github.css', __FILE__ ));
+	wp_enqueue_style( 'md_github', plugins_url( 'css/md-github.css', __FILE__ ));
 }
 add_action( 'wp_enqueue_scripts', 'md_github_enqueue_style' );
 add_shortcode('checkout_github', "md_github_checkout");

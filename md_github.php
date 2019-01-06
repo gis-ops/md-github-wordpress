@@ -59,7 +59,7 @@ function get_github_checkout($json) {
   $checkout_label = '<div class="markdown-github">
       <div class="markdown-github-labels">
         <label class="github-link">
-          <a href="'.$json.'" target="_blank">Check it out on github</a>
+          <a href="'.$json['html_url'].'" target="_blank">Check it out on github</a>
           <label class="github-last-update"> Last updated: '.$max_datetime_f.'</label>
         </label>
       </div>

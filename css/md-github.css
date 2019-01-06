@@ -2,9 +2,9 @@
 div.markdown-github {
     position: relative;
     font-size: 0.75em;
-    padding: 10px;
-    margin-bottom:15px
-}
+    margin-bottom:15px;
+    display: inline-block;
+  }
 
 div.markdown-github label.github-last-update {
   color:rgba(225, 246, 255, 0.45);

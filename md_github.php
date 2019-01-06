@@ -56,7 +56,7 @@ function get_github_checkout($json) {
   $max_datetime = strtotime($datetime);
   $max_datetime_f = date('d/m/Y H:i:s', $max_datetime);
 
-  $checkout_label = '<div class="markdown-github"
+  $checkout_label = '<div class="markdown-github">
       <div class="markdown-github-labels">
         <label class="github-link">
           <a href="'.$json.'" target="_blank">Check it out on github</a>
@@ -78,7 +78,7 @@ function md_github_handler($atts) {
 function md_github_checkout($atts) {
  $json = get_api_response($atts, 'checkout');
  $last_update_htnl = get_github_checkout($json);
- 
+
  return $last_update_htnl;
 }
 

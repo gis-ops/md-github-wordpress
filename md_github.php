@@ -8,7 +8,7 @@
    License: GNU v2
    */
 
-function atts_extract {
+function atts_extract($atts) {
   extract(shortcode_atts(array(
           'url' => "",
         ), $atts
@@ -72,7 +72,7 @@ function get_github_checkout($json, $url) {
   }
 
 function md_github_handler($atts) {
- $url = atts_extract($atts)
+ $url = atts_extract($atts);
  //get raw markdown from file URL
  $res = get_api_response($url, 'file');
  //send back text to replace shortcode in post
@@ -80,7 +80,7 @@ function md_github_handler($atts) {
 }
 
 function md_github_checkout($atts) {
- $url = atts_extract($atts)
+ $url = atts_extract($atts);
  // query commit endpoint for latest update time
  $json = get_api_response($url, 'checkout');
  $last_update_htnl = get_github_checkout($json, $url);

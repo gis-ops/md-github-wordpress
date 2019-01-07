@@ -49,7 +49,7 @@ function get_api_response($atts, $method) {
   return;
 }
 
-function get_github_checkout($json, $html_url) {
+function get_github_checkout($json, $res) {
 
   $datetime = $json['commit']['committer']['date'];
 
@@ -59,7 +59,7 @@ function get_github_checkout($json, $html_url) {
   $checkout_label = '<div class="markdown-github">
       <div class="markdown-github-labels">
         <label class="github-link">
-          <a href="'.$html_url.'" target="_blank">Check it out on github</a>
+          <a href="'.$res['html_url'].'" target="_blank">Check it out on github</a>
           <label class="github-last-update"> Last updated: '.$max_datetime_f.'</label>
         </label>
       </div>
@@ -76,10 +76,11 @@ function md_github_handler($atts) {
 }
 
 function md_github_checkout($atts) {
+ // query commit endpoint for latest update time
  $json = get_api_response($atts, 'checkout');
- // for the link we need the URL of the repo, not in the commit endpoint
+ // for the link we need the URL of the repo, it's not in the commit endpoint
  $res = get_api_response($atts, 'file');
- $last_update_htnl = get_github_checkout($json, $res['html_url']);
+ $last_update_htnl = get_github_checkout($json, $res);
 
  return $last_update_htnl;
 }

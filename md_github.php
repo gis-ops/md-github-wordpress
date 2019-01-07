@@ -2,10 +2,11 @@
    /*
    Plugin Name: Markdown Github
    Description: A plugin to inject markdown files directly into a post from Github
+   Plugin URI: https://github.com/gis-ops/md-github-wordpress
    Version: 1.0
    Author: Nils Nolde
    Author URI: https://gis-ops.com
-   License: GNU v2
+   License: GPLv2
    */
 
 function atts_extract($atts) {

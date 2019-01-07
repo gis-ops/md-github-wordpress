@@ -31,8 +31,8 @@ function get_api_response($url, $token, $method) {
       'method' => 'GET',
       'user_agent' => 'GIS-OPS.com',
       'timeout' => 1,
-      'header' => "Accept: application/vnd.github.VERSION.html+json\r\n",
-      'header' => "Authorization: token ".$token."\r\n"
+      'header' => "Accept: application/vnd.github.VERSION.html+json\r\n".
+                  "Authorization: token ".$token."\r\n"
     )
   );
 

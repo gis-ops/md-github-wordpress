@@ -2,7 +2,7 @@
    /*
    Plugin Name: Markdown Github
    Description: A plugin to inject markdown files directly into a post from Github
-   Version: 0.1
+   Version: 1.0
    Author: Nils Nolde
    Author URI: https://gis-ops.com
    License: GNU v2

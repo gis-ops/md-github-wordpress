@@ -14,7 +14,7 @@ function atts_extract($atts) {
         ), $atts
       )
    );
-  return $url
+  return $url;
 }
 
 function get_api_response($url, $method) {

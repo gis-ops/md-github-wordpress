@@ -8,13 +8,16 @@
    License: GNU v2
    */
 
-function get_api_response($atts, $method) {
-
+function atts_extract {
   extract(shortcode_atts(array(
           'url' => "",
         ), $atts
       )
    );
+  return $url
+}
+
+function get_api_response($url, $method) {
 
   $url_list = explode('/', $url);
   $owner = $url_list[3];
@@ -49,7 +52,7 @@ function get_api_response($atts, $method) {
   return;
 }
 
-function get_github_checkout($json, $res) {
+function get_github_checkout($json, $url) {
 
   $datetime = $json['commit']['committer']['date'];
 
@@ -59,7 +62,7 @@ function get_github_checkout($json, $res) {
   $checkout_label = '<div class="markdown-github">
       <div class="markdown-github-labels">
         <label class="github-link">
-          <a href="'.$res['html_url'].'" target="_blank">Check it out on github</a>
+          <a href="'.$url.'" target="_blank">Check it out on github</a>
           <label class="github-last-update"> Last updated: '.$max_datetime_f.'</label>
         </label>
       </div>
@@ -69,18 +72,18 @@ function get_github_checkout($json, $res) {
   }
 
 function md_github_handler($atts) {
+ $url = atts_extract($atts)
  //get raw markdown from file URL
- $res = get_api_response($atts, 'file');
+ $res = get_api_response($url, 'file');
  //send back text to replace shortcode in post
  return $res;
 }
 
 function md_github_checkout($atts) {
+ $url = atts_extract($atts)
  // query commit endpoint for latest update time
- $json = get_api_response($atts, 'checkout');
- // for the link we need the URL of the repo, it's not in the commit endpoint
- $res = get_api_response($atts, 'file');
- $last_update_htnl = get_github_checkout($json, $res);
+ $json = get_api_response($url, 'checkout');
+ $last_update_htnl = get_github_checkout($json, $url);
 
  return $last_update_htnl;
 }

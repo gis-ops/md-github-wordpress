@@ -11,13 +11,14 @@
 function atts_extract($atts) {
   extract(shortcode_atts(array(
           'url' => "",
+          'token' => "",
         ), $atts
       )
    );
-  return $url;
+  return array($url, $token);
 }
 
-function get_api_response($url, $method) {
+function get_api_response($url, $token, $method) {
 
   $url_list = explode('/', $url);
   $owner = $url_list[3];
@@ -30,7 +31,8 @@ function get_api_response($url, $method) {
       'method' => 'GET',
       'user_agent' => 'GIS-OPS.com',
       'timeout' => 1,
-      'header' => "Accept: application/vnd.github.VERSION.html+json\r\n"
+      'header' => "Accept: application/vnd.github.VERSION.html+json\r\n",
+      'header' => "Authorization: token ".$token."\r\n"
     )
   );
 
@@ -72,17 +74,17 @@ function get_github_checkout($json, $url) {
   }
 
 function md_github_handler($atts) {
- $url = atts_extract($atts);
+ list($url, $token) = atts_extract($atts);
  //get raw markdown from file URL
- $res = get_api_response($url, 'file');
+ $res = get_api_response($url, $token, 'file');
  //send back text to replace shortcode in post
  return $res;
 }
 
 function md_github_checkout($atts) {
- $url = atts_extract($atts);
+ list($url, $token) = atts_extract($atts);
  // query commit endpoint for latest update time
- $json = get_api_response($url, 'checkout');
+ $json = get_api_response($url, $token, 'checkout');
  $last_update_htnl = get_github_checkout($json, $url);
 
  return $last_update_htnl;

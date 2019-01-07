@@ -78,7 +78,7 @@ function md_github_handler($atts) {
 function md_github_checkout($atts) {
  $json = get_api_response($atts, 'checkout');
  // for the link we need the URL of the repo, not in the commit endpoint
- $res = get_api_response($atts, 'file')
+ $res = get_api_response($atts, 'file');
  $last_update_htnl = get_github_checkout($json, $res['html_url']);
 
  return $last_update_htnl;

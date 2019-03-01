@@ -9,7 +9,7 @@
    License: GPLv2
    */
 
-function atts_extract($atts) {
+function MDGH_atts_extract($atts) {
   extract(shortcode_atts(array(
           'url' => "",
           'token' => "",
@@ -19,7 +19,7 @@ function atts_extract($atts) {
   return array($url, $token);
 }
 
-function get_api_response($url, $token, $method) {
+function MDGH_get_api_response($url, $token, $method) {
 
   $url_list = explode('/', $url);
   $owner = $url_list[3];
@@ -55,7 +55,7 @@ function get_api_response($url, $token, $method) {
   return;
 }
 
-function get_github_checkout($json, $url) {
+function MDGH_get_github_checkout($json, $url) {
 
   $datetime = $json['commit']['committer']['date'];
 
@@ -74,26 +74,26 @@ function get_github_checkout($json, $url) {
   return $checkout_label;
   }
 
-function md_github_handler($atts) {
- list($url, $token) = atts_extract($atts);
+function MDGH_md_github_handler($atts) {
+ list($url, $token) = MDGH_atts_extract($atts);
  //get raw markdown from file URL
- $res = get_api_response($url, $token, 'file');
+ $res = MDGH_get_api_response($url, $token, 'file');
  //send back text to replace shortcode in post
  return $res;
 }
 
-function md_github_checkout($atts) {
- list($url, $token) = atts_extract($atts);
+function MDGH_md_github_checkout($atts) {
+ list($url, $token) = MDGH_atts_extract($atts);
  // query commit endpoint for latest update time
- $json = get_api_response($url, $token, 'checkout');
- $last_update_htnl = get_github_checkout($json, $url);
+ $json = MDGH_get_api_response($url, $token, 'checkout');
+ $last_update_htnl = MDGH_get_github_checkout($json, $url);
 
  return $last_update_htnl;
 }
 
-function md_github_enqueue_style() {
+function MDGH_md_github_enqueue_style() {
 	wp_enqueue_style( 'md_github', plugins_url( 'css/md-github.css', __FILE__ ));
 }
-add_action( 'wp_enqueue_scripts', 'md_github_enqueue_style' );
-add_shortcode('checkout_github', "md_github_checkout");
-add_shortcode("md_github", "md_github_handler");
+add_action( 'wp_enqueue_scripts', 'MDGH_md_github_enqueue_style' );
+add_shortcode('checkout_github', "MDGH_md_github_checkout");
+add_shortcode("md_github", "MDGH_md_github_handler");

@@ -1,6 +1,5 @@
 # Markdown Github
 
-
 WordPress Plugin to use Github as collaboration and version control platform for Markdown documents.
 
 Advantages:

@@ -3,7 +3,7 @@
    Plugin Name: Markdown Github
    Description: A plugin to inject markdown files directly into a post from Github
    Plugin URI: https://github.com/gis-ops/md-github-wordpress
-   Version: 1.0
+   Version: 1.1.0
    Author: Nils Nolde
    Author URI: https://gis-ops.com
    License: GPLv2
@@ -45,14 +45,12 @@ function MDGH_get_api_response($url, $token, $method) {
     return $res;
   } else {
     //if we want to get the checkout html via checkout_github shortcode
-    $request_url = 'https://api.github.com/repos/'.$owner.'/'.$repo.'/commits/'.$branch.'?path='.$path.'&page=1';
+    $request_url = 'https://api.github.com/repos/'.$owner.'/'.$repo.'/commits?path='.$path;
     $res = file_get_contents($request_url, FALSE, stream_context_create($context_params));
 
     $json = json_decode($res, true);
     return $json;
   }
-
-  return;
 }
 
 function MDGH_get_github_checkout($json, $url) {
@@ -72,7 +70,32 @@ function MDGH_get_github_checkout($json, $url) {
     </div>';
 
   return $checkout_label;
-  }
+}
+
+function MDGH_get_commit_history($json, $url) {
+    $url_list = explode('/', $url);
+    $owner = $url_list[3];
+    $repo = $url_list[4];
+    $branch = $url_list[6];
+    $path = implode("/", array_slice($url_list, 7));
+
+    $url_history = 'https://github.com/'.$owner.'/'.$repo.'/commits/'.'/'.$branch.'/'.$path;
+    $html_string = '<div id="file" class="instapaper_body md"><article class="markdown-body"><blockquote><h2><strong><a target="_blank" href="'.$url_history.'">Post history - Last 5 commits</a></strong></h2>';
+
+    $max_posts = 5;
+    $i = 0;
+    foreach ($json as $item) {
+        if($i == $max_posts) break;
+        $html_string .= '<p>';
+        $html_string .= '<strong>'.date('d/m/Y H:i:s', strtotime($item['commit']['committer']['date'])).'</strong> - '.$item["commit"]["message"];
+        $html_string .= ' ('.$item['commit']['committer']['name'].')';
+        $html_string .= '</p>';
+        $i++;
+    }
+    $html_string .= '</blockquote></article></div>';
+
+    return $html_string;
+}
 
 function MDGH_md_github_handler($atts) {
  list($url, $token) = MDGH_atts_extract($atts);
@@ -85,10 +108,18 @@ function MDGH_md_github_handler($atts) {
 function MDGH_md_github_checkout($atts) {
  list($url, $token) = MDGH_atts_extract($atts);
  // query commit endpoint for latest update time
- $json = MDGH_get_api_response($url, $token, 'checkout');
+ $json = MDGH_get_api_response($url, $token, 'checkout')[0];
  $last_update_htnl = MDGH_get_github_checkout($json, $url);
 
  return $last_update_htnl;
+}
+
+function MDHG_md_github_history($atts) {
+    list($url, $token) = MDGH_atts_extract($atts);
+    // query commit endpoint for latest update time
+    $json = MDGH_get_api_response($url, $token, 'checkout');
+    $history_html = MDGH_get_commit_history($json, $url);
+    return $history_html;
 }
 
 function MDGH_md_github_enqueue_style() {
@@ -97,3 +128,4 @@ function MDGH_md_github_enqueue_style() {
 add_action( 'wp_enqueue_scripts', 'MDGH_md_github_enqueue_style' );
 add_shortcode('checkout_github', "MDGH_md_github_checkout");
 add_shortcode("md_github", "MDGH_md_github_handler");
+add_shortcode('history_github', "MDHG_md_github_history");

@@ -4,7 +4,7 @@ Tags: github,markdown
 Requires at least: 4.0
 Tested up to: 5.0.2
 Requires PHP: 5.6
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2
 License URI: https://github.com/gis-ops/md-github-wordpress/blob/master/LICENSE
 
@@ -19,10 +19,11 @@ Advantages:
 - Easy to update by external users via pull requests, minimizes the chance of stale tutorials
 - Write Markdown in your favorite editor and just push to your repo to update your blog
 
-It features 2 shortcodes:
+It features 3 shortcodes:
 
 1. `[md_github token=YourToken url=Github URL]`: Pulls raw HTML from the `https://api.github.com/repos/` endpoint and styles it with Github markdown CSS
 2. `[checkout_github token=YourToken url=Github URL]`: Displays a formatted link to the repo with the date of the latest update
+3. `[history_github token=YourToken url=Github URL]`: Displays a commit history of the last 5 commits.
 
 Github API is queried on every new load of the page, so that changes in the repository will immediately be reflected on your blog. Private authentication tokens help increasing the API limit to 5000 requests per hour (enough even for Digital Ocean blogs) and accessing private repositories.
 
@@ -30,11 +31,19 @@ Idea and most of the code is based on Andy Challis' WP plugin to display Jupyter
 
 ## Usage
 
-Both shortcodes take `token` and `url` as attribute. `token` is your private personal access token, which you can generate [here](https://github.com/settings/developers). `url` is the full URL to your document on Github. E.g.
+All shortcodes take `token` and `url` as attribute. `token` is your private personal access token, which you can generate [here](https://github.com/settings/developers). `url` is the full URL to your document on Github. E.g.
 
-`[md_github token=1d6ef5ba426648ef7d2273aca2fc80787a url=https://github.com/gis-ops/tutorials/blob/master/qgis/QGIS_PluginBasics.md]`
+`[md_github token=1d6ef5ba426648ef7d2273aca2fc80787 url=https://github.com/gis-ops/tutorials/blob/master/qgis/QGIS_PluginBasics.md]`
 
-`[checkout_github token=1d6ef5ba426648ef7d2273aca2fc80787a url=https://github.com/gis-ops/tutorials/blob/master/qgis/QGIS_PluginBasics.md]`
+`[checkout_github token=1d6ef5ba426648ef7d2273aca2fc80787 url=https://github.com/gis-ops/tutorials/blob/master/qgis/QGIS_PluginBasics.md]`
+
+`[history_github token=1d6ef5ba426648ef7d2273aca2fc80787 url=https://github.com/gis-ops/tutorials/blob/master/qgis/QGIS_PluginBasics.md]`
+
+## Demo
+
+Check it out on of our blogs:
+
+https://gis-ops.com/react-redux-leaflet-turfjs-building-a-density-based-clustering-dbscan-app-with-the-almighty-here-maps-places-api/
 
 ## Support
 
@@ -45,9 +54,13 @@ Add issues at <https://github.com/gis-ops/md-github-wordpress/issues>.
 2. Install from Github via WP Pusher from gis-ops/md-github-wordpress
 3. Activate and add shortcode to your posts.
 
-Alternatively:
-Install as ZIP from https://github.com/gis-ops/md-github-wordpress/archive/master.zip
+Or directly from WordPress plugin repository.
+
+Or install as ZIP from https://github.com/gis-ops/md-github-wordpress/archive/master.zip
 
 == Changelog ==
+= v1.1.0 =
+* Add shortcode to display commit history
+
 = v1.0.0 =
 * First version

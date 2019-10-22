@@ -80,7 +80,7 @@ function MDGH_get_commit_history($json, $url) {
     $path = implode("/", array_slice($url_list, 7));
 
     $url_history = 'https://github.com/'.$owner.'/'.$repo.'/commits/'.'/'.$branch.'/'.$path;
-    $html_string = '<div id="file" class="instapaper_body md"><article class="markdown-body"><blockquote><h2><strong><a target="_blank" href="'.$url_history.'">Post history - Last 5 commits</a></strong></h2>';
+    $html_string = '<article class="markdown-body"><blockquote><h2><strong><a target="_blank" href="'.$url_history.'">Post history - Last 5 commits</a></strong></h2>';
 
     $max_posts = 5;
     $i = 0;
@@ -92,7 +92,7 @@ function MDGH_get_commit_history($json, $url) {
         $html_string .= '</p>';
         $i++;
     }
-    $html_string .= '</blockquote></article></div>';
+    $html_string .= '</blockquote></div>';
 
     return $html_string;
 }

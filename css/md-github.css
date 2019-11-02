@@ -1,4 +1,26 @@
 /*From https://github.com/ghandic/nbconvert/blob/master/css/nbconvert.css*/
+
+div.mdnotebook {
+    position: relative;
+    font-size: 0.75em;
+    border: 3px dashed;
+    padding: 10px;
+    margin-bottom:15px
+}
+
+div.mdnotebook div.markdown-github {
+  color:white;
+  line-height: 20px;
+  padding: 0px 5px;
+  position: absolute;
+  background-color: #345;
+  top: -3px;
+  left: -3px;
+  text-transform:none;
+  font-size:1em;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 div.markdown-github {
   position: relative;
   font-size: 0.75em;

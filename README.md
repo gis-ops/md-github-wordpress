@@ -12,7 +12,7 @@ It features the following shortcodes:
 1. `[md_github token=YourToken url=Github URL]`: Pulls raw HTML from the `https://api.github.com/repos/` endpoint and styles it with Github markdown CSS
 2. `[checkout_github token=YourToken url=Github URL]`: Displays a formatted link to the repo with the date of the latest update
 3. `[history_github token=YourToken url=Github URL]`: Displays a commit history of the last 5 commits.
-4.  [md_dashedbox_github token=YourToken url=Github URL] : Displays GitHub markdown file similar to [nbconvert](https://github.com/ghandic/nbconvert).
+4. `[md_dashedbox_github token=YourToken url=Github URL]`: Displays GitHub markdown file similar to [nbconvert](https://github.com/ghandic/nbconvert). This shortcode is mutually exclusive with `md_github` and `checkout_github`.
 
 Github API is queried on every new load of the page, so that changes in the repository will immediately be reflected on your blog. Private authentication tokens help increasing the API limit to 5000 requests per hour (enough even for Digital Ocean blogs) and accessing private repositories.
 

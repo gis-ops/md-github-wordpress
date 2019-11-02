@@ -35,6 +35,7 @@ All shortcodes take `token` and `url` as attribute. `token` is your private pers
 Check it out on of our blogs:
 
 https://gis-ops.com/react-redux-leaflet-turfjs-building-a-density-based-clustering-dbscan-app-with-the-almighty-here-maps-places-api/
+
 https://www.beyond-storage.com/wordpress-plugin-github-markdown
 
 ## Wordpress versions

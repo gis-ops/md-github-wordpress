@@ -105,20 +105,20 @@ function MDGH_md_github_handler($atts) {
     return $res;
 }
 
-function MDGH_mdnotebook_github_handler($atts) {
+function MDGH_md_dashedbox_github($atts) {
     list($url, $token) = MDGH_atts_extract($atts);
     //get checkout lable from file URL
     $checkout = MDGH_md_github_checkout($atts);
     //get raw markdown from file URL
     $markdown = MDGH_get_api_response($url, $token, 'file');
     //generate frame with border, checkout label and markdown content
-    $mdnotebook = '
-      <div class="mdnotebook">
+    $md_dashedbox = '
+      <div class="md_dashedbox">
         '.$checkout.'
         '.$markdown.'
       </div>';
     //send back text to replace shortcode in post
-    return $mdnotebook;
+    return $md_dashedbox;
 }
 
 function MDGH_md_github_checkout($atts) {
@@ -143,6 +143,7 @@ function MDGH_md_github_enqueue_style() {
 }
 add_action( 'wp_enqueue_scripts', 'MDGH_md_github_enqueue_style' );
 add_shortcode('checkout_github', "MDGH_md_github_checkout");
-add_shortcode("md_github", "MDGH_md_github_handler");
 add_shortcode("mdnotebook_github", "MDGH_mdnotebook_github_handler");
 add_shortcode('history_github', "MDHG_md_github_history");
+add_shortcode("md_dashedbox_github", "MDGH_md_dashedbox_github");
+

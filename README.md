@@ -7,12 +7,12 @@ Advantages:
 - Easy to update by external users via pull requests, minimizes the chance of stale tutorials
 - Write Markdown in your favorite editor and just push to your repo to update your blog
 
-It features 3 shortcodes:
+It features the following shortcodes:
 
 1. `[md_github token=YourToken url=Github URL]`: Pulls raw HTML from the `https://api.github.com/repos/` endpoint and styles it with Github markdown CSS
 2. `[checkout_github token=YourToken url=Github URL]`: Displays a formatted link to the repo with the date of the latest update
 3. `[history_github token=YourToken url=Github URL]`: Displays a commit history of the last 5 commits.
-4.  [mdnotebook_github token=YourToken url=Github URL] : Displays GitHub markdown file similar to nbconvert.
+4.  [md_dashedbox_github token=YourToken url=Github URL] : Displays GitHub markdown file similar to [nbconvert](https://github.com/ghandic/nbconvert).
 
 Github API is queried on every new load of the page, so that changes in the repository will immediately be reflected on your blog. Private authentication tokens help increasing the API limit to 5000 requests per hour (enough even for Digital Ocean blogs) and accessing private repositories.
 
@@ -28,7 +28,7 @@ All shortcodes take `token` and `url` as attribute. `token` is your private pers
 
 `[history_github token=1d6ef5ba426648ef7d2273aca2fc80787 url=https://github.com/gis-ops/tutorials/blob/master/qgis/QGIS_PluginBasics.md]`
 
-`[mdnotebook_github token=1d6ef5ba426648ef7d2273aca2fc80787 url=https://github.com/gis-ops/tutorials/blob/master/qgis/QGIS_PluginBasics.md]`
+`[md_dashedbox_github token=1d6ef5ba426648ef7d2273aca2fc80787 url=https://github.com/gis-ops/tutorials/blob/master/qgis/QGIS_PluginBasics.md]`
 
 ## Demo
 
@@ -43,3 +43,7 @@ https://www.beyond-storage.com/wordpress-plugin-github-markdown
 **Min**: v4.0
 
 **Tested up to**: 5.0.2
+
+
+## Contributors
+- Ulf Troppens: storageulf@gmail.com

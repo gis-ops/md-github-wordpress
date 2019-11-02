@@ -1,6 +1,6 @@
 /*From https://github.com/ghandic/nbconvert/blob/master/css/nbconvert.css*/
 
-div.mdnotebook {
+div.md_dashedbox {
     position: relative;
     font-size: 0.75em;
     border: 3px dashed;

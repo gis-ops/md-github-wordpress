@@ -143,7 +143,7 @@ function MDGH_md_github_enqueue_style() {
 }
 add_action( 'wp_enqueue_scripts', 'MDGH_md_github_enqueue_style' );
 add_shortcode('checkout_github', "MDGH_md_github_checkout");
-add_shortcode("mdnotebook_github", "MDGH_mdnotebook_github_handler");
+add_shortcode("md_github", "MDGH_md_github_handler");
 add_shortcode('history_github', "MDHG_md_github_history");
 add_shortcode("md_dashedbox_github", "MDGH_md_dashedbox_github");
 

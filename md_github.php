@@ -3,7 +3,7 @@
 Plugin Name: Markdown Github
 Description: A plugin to inject markdown files directly into a post from Github
 Plugin URI: https://github.com/gis-ops/md-github-wordpress
-Version: 1.1.0
+Version: 1.2.0
 Author: Nils Nolde
 Author URI: https://gis-ops.com
 License: GPLv2
@@ -105,6 +105,22 @@ function MDGH_md_github_handler($atts) {
     return $res;
 }
 
+function MDGH_md_dashedbox_github($atts) {
+    list($url, $token) = MDGH_atts_extract($atts);
+    //get checkout lable from file URL
+    $checkout = MDGH_md_github_checkout($atts);
+    //get raw markdown from file URL
+    $markdown = MDGH_get_api_response($url, $token, 'file');
+    //generate frame with border, checkout label and markdown content
+    $md_dashedbox = '
+      <div class="md_dashedbox">
+        '.$checkout.'
+        '.$markdown.'
+      </div>';
+    //send back text to replace shortcode in post
+    return $md_dashedbox;
+}
+
 function MDGH_md_github_checkout($atts) {
     list($url, $token) = MDGH_atts_extract($atts);
     // query commit endpoint for latest update time
@@ -129,3 +145,5 @@ add_action( 'wp_enqueue_scripts', 'MDGH_md_github_enqueue_style' );
 add_shortcode('checkout_github', "MDGH_md_github_checkout");
 add_shortcode("md_github", "MDGH_md_github_handler");
 add_shortcode('history_github', "MDHG_md_github_history");
+add_shortcode("md_dashedbox_github", "MDGH_md_dashedbox_github");
+

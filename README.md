@@ -1,4 +1,4 @@
-# Markdown Github
+# Deprecated in favor of the improved WordPress Plugin [documents-from-git](https://wordpress.org/plugins/documents-from-git/)
 
 WordPress Plugin to use Github as collaboration and version control platform for Markdown documents.
 
